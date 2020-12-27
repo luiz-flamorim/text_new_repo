@@ -22,10 +22,8 @@ const svg = d3
     .style("z-index", 2);
 
 circles = d3.csv('data/lista-monumentos.csv')
+
     .then(function (data) {
-
-        console.log(data)
-
         let dots = svg
             .selectAll("circle")
             .data(data)
@@ -81,9 +79,7 @@ circles = d3.csv('data/lista-monumentos.csv')
                     return project(d).y;
                 });
 
-            }
-            // console.log(dots._groups[0][0].cx.animVal.value)
-
-        
+        }
+        // console.log(dots._groups[0][0].cx.animVal.value)
 
     })
