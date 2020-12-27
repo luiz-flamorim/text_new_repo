@@ -5,23 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <!-- D3 library -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
-
-    <!-- mapBox library -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
-
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    </script>
 
     <title>Monumentos de São Paulo</title>
 </head>
 
 <body>
-    <div id="mapid"></div>
-    <div id="tooltip"></div>
+    
+    <div class="container">
+        <div class="row text centered">
+            <h1 class="text-center">Monumentos de São Paulo</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="tooltip"></div>
+                <div id="mapid"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/key.js"></script>
-
     <script src="js/app.js"></script>
 
     <!-- use this list template for the addresses fixing

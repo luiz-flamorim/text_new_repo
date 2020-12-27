@@ -1,5 +1,3 @@
-// SP Map: https://upload.wikimedia.org/wikipedia/commons/5/56/Mapa_sp.svg
-
 const spLat = -23.550520
 const spLong = -46.633308
 let circles;
@@ -26,6 +24,8 @@ const svg = d3
 circles = d3.csv('data/lista-monumentos.csv')
     .then(function (data) {
 
+        console.log(data)
+
         let dots = svg
             .selectAll("circle")
             .data(data)
@@ -38,26 +38,26 @@ circles = d3.csv('data/lista-monumentos.csv')
             .attr('class', 'unselected')
 
             .on('mouseover', function (event, d) {
-                // console.log(svg.select('circle'))
                 info = d.nome + '<br />'
                 info += d.data
 
                 d3.select(this)
-                    // .style('fill', 'red');
-                    .attr('class', 'selected');
+                    .attr('class', 'selected')
+                    .attr("r", 8);
 
                 d3.select('#tooltip')
                     .html(info)
                     .style('left', (event.pageX - 80) + 'px')
                     .style('top', (event.pageY - 100) + 'px')
                     .style('opacity', 0.9)
-
             })
+
             .on('mouseout', function (event, d) {
                 d3.select('#tooltip')
                     .style('opacity', 0)
                 d3.select(this)
-                    .attr('class', 'unselected');
+                    .attr('class', 'unselected')
+                    .attr("r", 5);
 
             })
 

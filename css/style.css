@@ -7,18 +7,19 @@
 #tooltip {
     position: absolute;
     background-color: #ffffff;
-    padding: 20px;
-    border: solid 1px black;
+    padding: 10px;
     opacity: 0;
+    border-radius: 10px;
+    z-index: 3;
 }
 
 .selected {
-    fill: red;
-    opacity: 0.5;
+    fill: rgb(27, 87, 125);
+    opacity: 0.8;
 
 }
 
 .unselected {
-    fill: green;
-    opacity: 0.5;
+    fill: rgb(45, 121, 169);
+    opacity: 0.4;
 }
