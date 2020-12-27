@@ -5,8 +5,6 @@ const spLong = -46.633308
 let circles;
 let info;
 
-
-
 mapboxgl.accessToken = mapBoxApi;
 const map = new mapboxgl.Map({
     container: 'mapid',
