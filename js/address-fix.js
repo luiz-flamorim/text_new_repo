@@ -5,6 +5,8 @@ const api = 'https://geocode.search.hereapi.com/v1/geocode?q='
 
 getData()
 
+fixLongLat()
+
 async function getData() {
 
     let originalCsv = []
