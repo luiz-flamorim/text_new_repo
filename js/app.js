@@ -1,9 +1,7 @@
-const spLat = -23.55052
+const spLat = -23.550520
 const spLong = -46.633308
 let circles
 let info
-const usedValuesLongLat = []
-const movePoint = 5
 
 mapboxgl.accessToken = mapBoxApi
 const map = new mapboxgl.Map({
@@ -27,9 +25,20 @@ circles = d3
   .csv("data/lista-monumentos.csv")
 
   .then(function (data) {
+
+    const treatedData = data
+    for (let i = 0; i < data.length; i++) {
+      for (let j = i + 1; j < data.length; j++) {
+        if (data[i].lat === data[j].lat) {
+          treatedData[i].lat = parseFloat(treatedData[i].lat) + Math.random() * 0.0008
+          treatedData[i].long = parseFloat(treatedData[i].long) + Math.random() * 0.0008
+        }
+      }
+    }
+
     let dots = svg
       .selectAll("circle")
-      .data(data)
+      .data(treatedData)
       .enter()
       .append("circle")
       .attr("r", 5)
@@ -38,29 +47,42 @@ circles = d3
       })
       .attr("class", "unselected")
       .on("mouseover", function (event, d) {
-        info = d.nome + "<br />"
-        info += d.data
 
-        d3.select(this).attr("class", "selected").attr("r", 8)
+        d3.select(this)
+          .attr("class", "selected")
+          .transition()
+          .attr("r", 10)
 
         d3.select("#tooltip")
-          .html(info)
+          .html(
+            `<div class="row"></div>
+            <div class="col"></div>
+            <p class="title">${d.nome}</p>
+            <p class="data"> ${d.tipo} em ${d.materia}</p>
+            <p class="data"><b>${d.autor}</b> - ${d.data}</p>
+            <p class="endereco"><b>Endereço:</b> ${d.endereco}</p>`
+            )
           .style("left", event.pageX - 80 + "px")
-          .style("top", event.pageY - 100 + "px")
-          .style("opacity", 0.9)
+          .style("top", event.pageY - 150 + "px")
+          .transition()
+          .style("opacity", 1)
       })
 
       .on("mouseout", function (event, d) {
-        d3.select("#tooltip").style("opacity", 0)
-        d3.select(this).attr("class", "unselected").attr("r", 5)
+        d3.select("#tooltip")
+          .transition()
+
+          .style("opacity", 0)
+        d3.select(this)
+          .attr("class", "unselected")
+          .transition()
+          .attr("r", 5)
       })
 
     render()
     map.on("viewreset", render)
     map.on("move", render)
     map.on("moveend", render)
-
-    // console.log(data.length)
 
     function project(d) {
       return map.project(new mapboxgl.LngLat(d.long, d.lat))
@@ -69,26 +91,10 @@ circles = d3
     function render() {
       dots
         .attr("cx", function (d) {
-          const coordinate = project(d).x
-
-          // Filter the coordinates array to find if the values has been added already
-          const hasThisLongLatBeenUsed = usedValuesLongLat.some(
-            (item) => item === coordinate
-          )
-
-          if (hasThisLongLatBeenUsed) {
-            console.log(coordinate + movePoint)
-            return coordinate + movePoint
-          } else {
-            usedValuesLongLat.push(coordinate)
-          }
-
-          console.log(coordinate)
-          return coordinate
+          return project(d).x
         })
         .attr("cy", function (d) {
           return project(d).y
         })
     }
-    // console.log(dots._groups[0][0].cx.animVal.value)
   })

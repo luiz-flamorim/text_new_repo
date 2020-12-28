@@ -9,3 +9,6 @@ a bit of manual work for fixing small issues i.e. streets with same names in
 different cities, resulting in a worng lat/long placement. I have then manually fixed
 the addresses on the spreadsheet, so that's why there are two adresses field - keeping
 the original.
+
+Special thanks to the very welcome extra pairs of hands:
+@menttys
