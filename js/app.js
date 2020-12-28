@@ -22,7 +22,7 @@ const svg = d3
   .style("z-index", 2)
 
 circles = d3
-  .csv("data/lista-monumentos.csv")
+  .csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTCy237VAgDdePjsEjQkuZqYPOLwLA3DW7lhWhbcx2-KWwvfMK_liUdcO74G0Pnng/pub?gid=1159701123&single=true&output=csv")
 
   .then(function (data) {
 
