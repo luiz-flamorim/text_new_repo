@@ -10,17 +10,41 @@
     padding: 10px;
     opacity: 0;
     border-radius: 5px;
+    z-index: 4;
+    box-shadow: 2px 2px 5px rgb(205, 205, 205);
+}
+#legend {
+    position: absolute;
+    background-color: #ffffff;
+    opacity: 0.9;
+    max-height: 15%;
+    margin: 5px;
+    border-radius: 5px;
     z-index: 3;
     box-shadow: 2px 2px 5px rgb(205, 205, 205);
+    font-size: 12px;
+    font-family: sans-serif;
 }
 
 .selected {
-    fill: rgb(27, 87, 125);
     opacity: 0.8;
 }
 
-.unselected {
+.homem {
     fill: rgb(45, 121, 169);
+    opacity: 0.4;
+}
+.mulher {
+    fill: rgb(187, 51, 27);
+    opacity: 0.4;
+}
+.ambos {
+    fill: rgb(120, 27, 187);
+    opacity: 0.4;
+}
+
+.outros {
+    fill: rgb(67, 67, 67);
     opacity: 0.4;
 }
 

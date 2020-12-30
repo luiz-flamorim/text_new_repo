@@ -36,7 +36,43 @@ circles = d3
       }
     }
 
-    let dots = svg
+    const legend = d3.select('#legend')
+    const distance = 15
+    const spacing = 25
+
+    const unique = treatedData.map(item => item.genero)
+      .filter((value, index, self) => self.indexOf(value) === index)
+
+    legend.selectAll("mydots")
+      .data(unique)
+      .enter()
+      .append("circle")
+      .attr("cx", distance)
+      .attr("cy", function (d, i) {
+        return distance + i * spacing
+      })
+      .attr("r", 5)
+      .attr("class", function (d) {
+        return d
+      })
+
+    legend.selectAll("mylabels")
+      .data(unique)
+      .enter()
+      .append("text")
+      .attr("x", distance * 1.7)
+      .attr("y", function (d, i) {
+        return distance + i * spacing
+      })
+      .attr("class", '.endereco')
+      .text(function (d) {
+        return d[0].toUpperCase() + d.slice(1)
+      })
+      .attr("text-anchor", "left")
+      .style("alignment-baseline", "middle")
+
+
+    let dotsOnMap = svg
       .selectAll("circle")
       .data(treatedData)
       .enter()
@@ -45,11 +81,17 @@ circles = d3
       .attr("id", function (d, i) {
         return i
       })
-      .attr("class", "unselected")
+      .attr("class", function (d) {
+        if (d.genero === 'não figurativo') {
+          return 'outros'
+        } else {
+          return d.genero
+        }
+      })
+
       .on("mouseover", function (event, d) {
 
         d3.select(this)
-          .attr("class", "selected")
           .transition()
           .attr("r", 10)
 
@@ -61,7 +103,7 @@ circles = d3
             <p class="data"> ${d.tipo} em ${d.materia}</p>
             <p class="data"><b>${d.autor}</b> - ${d.data}</p>
             <p class="endereco"><b>Endereço:</b> ${d.endereco}</p>`
-            )
+          )
           .style("left", event.pageX - 80 + "px")
           .style("top", event.pageY - 150 + "px")
           .transition()
@@ -71,10 +113,15 @@ circles = d3
       .on("mouseout", function (event, d) {
         d3.select("#tooltip")
           .transition()
-
           .style("opacity", 0)
         d3.select(this)
-          .attr("class", "unselected")
+          .attr("class", function (d) {
+            if (d.genero === 'não figurativo') {
+              return 'outros'
+            } else {
+              return d.genero
+            }
+          })
           .transition()
           .attr("r", 5)
       })
@@ -89,7 +136,7 @@ circles = d3
     }
 
     function render() {
-      dots
+      dotsOnMap
         .attr("cx", function (d) {
           return project(d).x
         })
